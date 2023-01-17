@@ -6,10 +6,8 @@ public class ArrayStorage {
     int countResume = 0;
 
     void clear() {
-        int j = 0;
-        while (j < countResume) {
-            storage[j] = null;
-            j++;
+        for (int i = 0; i < countResume; i++) {
+            storage[i] = null;
         }
         countResume = 0;
     }
@@ -19,41 +17,35 @@ public class ArrayStorage {
         countResume++;
     }
 
-    Resume get(String uuidRef) {
-
-        Resume res = null;
-
-        for (int j = 0; j < countResume; j++) {
-            if (storage[j].uuid.equals(uuidRef)) {
-                res = storage[j];
-                break;
+    Resume get(String uuid) {
+        for (int i = 0; i < countResume; i++) {
+            if (storage[i].uuid.equals(uuid)) {
+                return storage[i];
             }
         }
-        return res;
+        return null;
     }
 
-    void delete(String uuidRef) {
-        int numDelete = 0;
-        for (int j = 0; j < countResume; j++) {
-            if (storage[j].uuid.equals(uuidRef)) {
-                numDelete = j;
-                break;
+    void delete(String uuid) {
+        int indexForDelete;
+        for (int i = 0; i < countResume; i++) {
+            if (storage[i].uuid.equals(uuid)) {
+                indexForDelete = i;
+                if (countResume - 1 - indexForDelete > 0) {
+                    System.arraycopy(storage, indexForDelete + 1, storage, indexForDelete, countResume - 1 - indexForDelete);
+                }
+                countResume--;
             }
         }
-
-        if (countResume - 1 - numDelete >= 0) {
-            System.arraycopy(storage, numDelete + 1, storage, numDelete, countResume - 1 - numDelete);
-        }
-        countResume--;
     }
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        Resume[] resultRes = new Resume[countResume];
-        System.arraycopy(storage, 0, resultRes, 0, countResume);
-        return resultRes;
+        Resume[] allResume = new Resume[countResume];
+        System.arraycopy(storage, 0, allResume, 0, countResume);
+        return allResume;
     }
 
     int size() {
