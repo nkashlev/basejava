@@ -21,7 +21,7 @@ public class ArrayStorage {
     }
 
     public void save(Resume resume) {
-        if (size > storage.length) {
+        if (size > STORAGE_LIMIT) {
             System.out.println("ERROR: resume-" + resume.getUuid() + " cannot be saved storage is full");
         } else if (getIndex(resume.getUuid()) > -1) {
             System.out.println("ERROR: resume-" + resume.getUuid() + " cannot be saved was not found resume");
@@ -32,8 +32,11 @@ public class ArrayStorage {
     }
 
     public void update(Resume resume) {
-        if (getIndex(resume.getUuid()) > -1) {
-            resume.setUuid("newUuid");
+        int index = getIndex(resume.getUuid());
+        if (index > -1) {
+            resume = new Resume();
+            resume.setUuid("uuid1");
+            storage[index] = resume;
         } else {
             System.out.println(ERROR + resume.getUuid());
         }
@@ -44,16 +47,15 @@ public class ArrayStorage {
             return storage[getIndex(uuid)];
         } else {
             System.out.println(ERROR + uuid);
+            return null;
         }
-        return null;
     }
 
     public void delete(String uuid) {
-        int indexForDelete = getIndex(uuid);
-        if (indexForDelete > -1) {
-            if (size - 1 - indexForDelete > 0) {
-                System.arraycopy(storage, indexForDelete + 1, storage, indexForDelete, size - 1 - indexForDelete);
-            }
+        int index = getIndex(uuid);
+        if (index > -1) {
+            storage[index] = storage[size - 1];
+            storage[size - 1] = null;
             size--;
         } else {
             System.out.println(ERROR + uuid);
