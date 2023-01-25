@@ -34,8 +34,6 @@ public class ArrayStorage {
     public void update(Resume resume) {
         int index = getIndex(resume.getUuid());
         if (index > -1) {
-            resume = new Resume();
-            resume.setUuid("uuid1");
             storage[index] = resume;
         } else {
             System.out.println(ERROR + resume.getUuid());
@@ -43,8 +41,9 @@ public class ArrayStorage {
     }
 
     public Resume get(String uuid) {
-        if (getIndex(uuid) > -1) {
-            return storage[getIndex(uuid)];
+        int index = getIndex(uuid);
+        if (index > -1) {
+            return storage[index];
         } else {
             System.out.println(ERROR + uuid);
             return null;
