@@ -18,10 +18,8 @@ public abstract class AbstractArrayStorageTest {
     private static final Resume RESUME_3 = new Resume(UUID_3);
     private static final String UUID_4 = "uuid4";
     private static final Resume RESUME_4 = new Resume(UUID_4);
-
     private static final String UUID_NOT_EXIST = "dummy";
     private final Storage storage;
-
 
     public AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
