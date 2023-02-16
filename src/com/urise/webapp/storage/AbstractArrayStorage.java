@@ -1,7 +1,6 @@
 package com.urise.webapp.storage;
 
 import com.urise.webapp.exception.ExistStorageException;
-import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
@@ -12,17 +11,19 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected final Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
 
+    @Override
     public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
+    @Override
     public int size() {
         return size;
     }
 
-    public void save(Resume resume) {
-        int index = getIndex(resume.getUuid());
+    @Override
+    protected void saveResume(Resume resume, int index) {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage is overflow", resume.getUuid());
         } else if (index < 0) {
@@ -33,38 +34,27 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         }
     }
 
-    public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index > -1) {
-            storage[index] = resume;
-        } else {
-            throw new NotExistStorageException(resume.getUuid());
-        }
+    @Override
+    protected void updateResume(Resume resume, int index) {
+        storage[index] = resume;
     }
 
-    public void delete(String uuid) {
-        int index = getIndex(uuid);
-        if (index > -1) {
-            deleteIndex(index);
-            storage[size - 1] = null;
-            size--;
-        } else {
-            throw new NotExistStorageException(uuid);
-        }
+    @Override
+    protected void deleteResume(int index) {
+        deleteIndex(index);
+        storage[size - 1] = null;
+        size--;
     }
 
-    public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        if (index > -1) {
-            return storage[index];
-        } else {
-            throw new NotExistStorageException(uuid);
-        }
+    @Override
+    protected Resume getResume(int index) {
+        return storage[index];
     }
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
+    @Override
     public Resume[] getAll() {
         return Arrays.copyOf(storage, size);
     }

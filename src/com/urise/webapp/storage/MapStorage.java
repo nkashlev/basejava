@@ -3,29 +3,35 @@ package com.urise.webapp.storage;
 import com.urise.webapp.model.Resume;
 
 public class MapStorage extends AbstractStorage {
+
     @Override
     public void clear() {
 
     }
 
     @Override
-    public void update(Resume r) {
+    public int size() {
+        return 0;
+    }
+
+    @Override
+    protected void saveResume(Resume resume, int index) {
 
     }
 
     @Override
-    public void save(Resume r) {
+    protected void updateResume(Resume resume, int index) {
 
     }
 
     @Override
-    public Resume get(String uuid) {
+    protected void deleteResume(int index) {
+
+    }
+
+    @Override
+    protected Resume getResume(int index) {
         return null;
-    }
-
-    @Override
-    public void delete(String uuid) {
-
     }
 
     @Override
@@ -33,10 +39,6 @@ public class MapStorage extends AbstractStorage {
         return new Resume[0];
     }
 
-    @Override
-    public int size() {
-        return 0;
-    }
 
     @Override
     protected int getIndex(String uuid) {

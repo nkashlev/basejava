@@ -1,7 +1,6 @@
 package com.urise.webapp.storage;
 
 import com.urise.webapp.exception.ExistStorageException;
-import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.model.Resume;
 
 import java.util.ArrayList;
@@ -16,18 +15,12 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index > -1) {
-            storage.set(index, resume);
-        } else {
-            throw new NotExistStorageException(resume.getUuid());
-        }
+    public int size() {
+        return storage.size();
     }
 
     @Override
-    public void save(Resume resume) {
-        int index = getIndex(resume.getUuid());
+    protected void saveResume(Resume resume, int index) {
         if (index < 0) {
             storage.add(resume);
         } else {
@@ -36,23 +29,18 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        if (index > -1) {
-            return storage.get(index);
-        } else {
-            throw new NotExistStorageException(uuid);
-        }
+    protected void updateResume(Resume resume, int index) {
+        storage.set(index, resume);
     }
 
     @Override
-    public void delete(String uuid) {
-        int index = getIndex(uuid);
-        if (index > -1) {
-            storage.remove(index);
-        } else {
-            throw new NotExistStorageException(uuid);
-        }
+    protected void deleteResume(int index) {
+        storage.remove(index);
+    }
+
+    @Override
+    protected Resume getResume(int index) {
+        return storage.get(index);
     }
 
     @Override
@@ -62,10 +50,6 @@ public class ListStorage extends AbstractStorage {
         return resumes;
     }
 
-    @Override
-    public int size() {
-        return storage.size();
-    }
 
     @Override
     protected int getIndex(String uuid) {
