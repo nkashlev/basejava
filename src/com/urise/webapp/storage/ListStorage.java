@@ -10,15 +10,19 @@ import java.util.List;
 public class ListStorage extends AbstractStorage {
     List<Resume> storage = new ArrayList<>();
 
-
     @Override
     public void clear() {
         storage.clear();
     }
 
     @Override
-    public void update(Resume r) {
-
+    public void update(Resume resume) {
+        int index = getIndex(resume.getUuid());
+        if (index > -1) {
+            storage.set(index, resume);
+        } else {
+            throw new NotExistStorageException(resume.getUuid());
+        }
     }
 
     @Override
@@ -44,27 +48,23 @@ public class ListStorage extends AbstractStorage {
     @Override
     public void delete(String uuid) {
         int index = getIndex(uuid);
-        storage.remove(index);
+        if (index > -1) {
+            storage.remove(index);
+        } else {
+            throw new NotExistStorageException(uuid);
+        }
     }
 
     @Override
     public Resume[] getAll() {
-     //   return storage.toArray((storage) clone());
+        Resume[] resumes = new Resume[storage.size()];
+        resumes = storage.toArray(resumes);
+        return resumes;
     }
 
     @Override
     public int size() {
         return storage.size();
-    }
-
-    @Override
-    protected void saveIndex(int index, Resume resume) {
-
-    }
-
-    @Override
-    protected void deleteIndex(int index) {
-
     }
 
     @Override

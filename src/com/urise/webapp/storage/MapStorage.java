@@ -39,16 +39,6 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void saveIndex(int index, Resume resume) {
-
-    }
-
-    @Override
-    protected void deleteIndex(int index) {
-
-    }
-
-    @Override
     protected int getIndex(String uuid) {
         return 0;
     }
