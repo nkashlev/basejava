@@ -23,41 +23,45 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void saveResume(Resume resume, int index) {
+    protected void doSave(Resume resume, Object index) {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage is overflow", resume.getUuid());
-        } else if (index < 0) {
-            saveIndex(index, resume);
+        } else if ((Integer) index < 0) {
+            saveIndex((Integer) index, resume);
             size++;
-        } else {
-            throw new ExistStorageException(resume.getUuid());
         }
     }
 
     @Override
-    protected void updateResume(Resume resume, int index) {
-        storage[index] = resume;
+    protected void doUpdate(Resume resume, Object index) {
+        storage[(Integer) index] = resume;
     }
 
     @Override
-    protected void deleteResume(int index) {
-        deleteIndex(index);
+    protected void doDelete(Object index) {
+        deleteIndex((Integer) index);
         storage[size - 1] = null;
         size--;
     }
 
     @Override
-    protected Resume getResume(int index) {
-        return storage[index];
+    protected Resume doGet(Object index) {
+        return storage[(Integer) index];
     }
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    @Override
+
     public Resume[] getAll() {
         return Arrays.copyOf(storage, size);
     }
+
+    @Override
+    protected boolean isExist(Object searchKey) {
+        return (Integer) searchKey > -1;
+    }
+
 
     protected abstract void saveIndex(int index, Resume resume);
 

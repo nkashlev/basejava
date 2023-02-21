@@ -2,46 +2,59 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class MapStorage extends AbstractStorage {
+
+    Map<String, Resume> mapStorage = new HashMap<>();
 
     @Override
     public void clear() {
-
+        mapStorage.clear();
     }
 
     @Override
     public int size() {
-        return 0;
+        return mapStorage.size();
     }
 
     @Override
-    protected void saveResume(Resume resume, int index) {
-
+    protected void doSave(Resume resume, Object searchKey) {
+        mapStorage.put((String) searchKey, resume);
     }
 
     @Override
-    protected void updateResume(Resume resume, int index) {
-
+    protected void doUpdate(Resume resume, Object searchKey) {
+        //  mapStorage.put((String) searchKey, resume);
+        mapStorage.replace((String) searchKey, resume);
     }
 
     @Override
-    protected void deleteResume(int index) {
-
+    protected void doDelete(Object searchKey) {
+        mapStorage.remove((String) searchKey);
     }
 
     @Override
-    protected Resume getResume(int index) {
-        return null;
+    protected Resume doGet(Object searchKey) {
+        return mapStorage.get((String) searchKey);
     }
 
     @Override
     public Resume[] getAll() {
-        return new Resume[0];
+        List<Resume> resumes = new ArrayList<>(mapStorage.values());
+        return resumes.toArray(new Resume[mapStorage.size()]);
     }
 
+    @Override
+    protected Object getSearchKey(String uuid) {
+        return uuid;
+    }
 
     @Override
-    protected int getIndex(String uuid) {
-        return 0;
+    protected boolean isExist(Object searchKey) {
+        return mapStorage.containsKey(searchKey);
     }
 }
