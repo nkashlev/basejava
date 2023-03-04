@@ -7,45 +7,43 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MapStorage extends AbstractStorage {
+public class MapUuidStorage extends AbstractStorage {
 
-    Map<String, Resume> mapStorage = new HashMap<>();
+    private final Map<String, Resume> storage = new HashMap<>();
 
     @Override
     public void clear() {
-        mapStorage.clear();
+        storage.clear();
     }
 
     @Override
     public int size() {
-        return mapStorage.size();
+        return storage.size();
     }
 
     @Override
     protected void doSave(Resume resume, Object searchKey) {
-        mapStorage.put((String) searchKey, resume);
+        storage.put((String) searchKey, resume);
     }
 
     @Override
     protected void doUpdate(Resume resume, Object searchKey) {
-        //  mapStorage.put((String) searchKey, resume);
-        mapStorage.replace((String) searchKey, resume);
+        storage.replace((String) searchKey, resume);
     }
 
     @Override
     protected void doDelete(Object searchKey) {
-        mapStorage.remove((String) searchKey);
+        storage.remove((String) searchKey);
     }
 
     @Override
     protected Resume doGet(Object searchKey) {
-        return mapStorage.get((String) searchKey);
+        return storage.get((String) searchKey);
     }
 
     @Override
-    public Resume[] getAll() {
-        List<Resume> resumes = new ArrayList<>(mapStorage.values());
-        return resumes.toArray(new Resume[mapStorage.size()]);
+    public List<Resume> doCopyAll() {
+        return new ArrayList<>(storage.values());
     }
 
     @Override
@@ -55,6 +53,6 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected boolean isExist(Object searchKey) {
-        return mapStorage.containsKey(searchKey);
+        return storage.containsKey(searchKey);
     }
 }
