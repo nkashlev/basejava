@@ -13,7 +13,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
             return o1.getUuid().compareTo(o2.getUuid());
         }
     };*/
-private static final Comparator<Resume> RESUME_COMPARATOR = (o1, o2) -> o1.getUuid().compareTo(o2.getUuid());
+private static final Comparator<Resume> RESUME_COMPARATOR = Comparator.comparing(Resume::getUuid);
 
     @Override
     protected void saveIndex(int index, Resume resume) {
@@ -30,7 +30,7 @@ private static final Comparator<Resume> RESUME_COMPARATOR = (o1, o2) -> o1.getUu
     }
 
     @Override
-    protected Object getSearchKey(String uuid) {
+    protected Integer getSearchKey(String uuid) {
         Resume searchKey = new Resume(uuid, "dummy");
         return Arrays.binarySearch(storage, 0, size, searchKey, RESUME_COMPARATOR);
     }
