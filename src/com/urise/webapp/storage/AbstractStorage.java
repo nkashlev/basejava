@@ -4,6 +4,7 @@ import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.model.Resume;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
@@ -11,8 +12,6 @@ import java.util.logging.Logger;
 public abstract class AbstractStorage<SK> implements Storage {
 
     private static final Logger LOG = Logger.getLogger(AbstractStorage.class.getName());
-
-    private static final Comparator<Resume> RESUME_COMPARATOR = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
 
     @Override
     public void save(Resume resume) {
@@ -64,7 +63,7 @@ public abstract class AbstractStorage<SK> implements Storage {
     public List<Resume> getAllSorted() {
         LOG.info("getAllSorted");
         List<Resume> list = doCopyAll();
-        list.sort(RESUME_COMPARATOR);
+        Collections.sort(list);
         return list;
     }
 

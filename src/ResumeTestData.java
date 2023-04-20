@@ -1,27 +1,34 @@
 import com.urise.webapp.model.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class ResumeTestData {
-    public static void main(String[] args) {
-        Resume resume = new Resume("uuid1", "Григорий Кислин");
+  /*  public static void main(String[] args) {
+        resumeTestData("name1", "full name1");
+    }
+
+    private static void resumeTestData(String uuid, String fullName) {
+
+        Resume resume = new Resume(uuid, fullName);
+
 
         for (ContactType type : ContactType.values()) {
             if (ContactType.SKYPE.equals(type)) {
-                resume.getContacts().put(ContactType.SKYPE, "Skype: skype:grigory.kislin");
+                resume.getContacts().put(ContactType.SKYPE, "Skype: @skype");
             } else if (ContactType.PHONE.equals(type)) {
-                resume.getContacts().put(ContactType.PHONE, "Тел.: +7(921) 855-0482");
+                resume.getContacts().put(ContactType.PHONE, "Тел.: +7(921)-855-04-82");
             } else if (ContactType.MAIL.equals(type)) {
-                resume.getContacts().put(ContactType.MAIL, "Почта: gkislin@yandex.ru");
+                resume.getContacts().put(ContactType.MAIL, "Почта: @yandex.ru");
             } else if (ContactType.LINKEDIN.equals(type)) {
-                resume.getContacts().put(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
+                resume.getContacts().put(ContactType.LINKEDIN, "https://www.linkedin.com");
             } else if (ContactType.GITHUB.equals(type)) {
-                resume.getContacts().put(ContactType.GITHUB, "https://github.com/gkislin");
+                resume.getContacts().put(ContactType.GITHUB, "https://github.com");
             } else if (ContactType.STACKOVERFLOW.equals(type)) {
-                resume.getContacts().put(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin");
+                resume.getContacts().put(ContactType.STACKOVERFLOW, "https://stackoverflow.com");
             } else {
-                resume.getContacts().put(ContactType.HOME_PAGE, "https://gkislin.ru/");
+                resume.getContacts().put(ContactType.HOME_PAGE, "https://hhhhhh.ru/");
             }
         }
 
@@ -29,50 +36,61 @@ public class ResumeTestData {
         System.out.println();
 
         List<String> listAchievement = new ArrayList<>();
-        listAchievement.add("Организация команды и успешная реализация Java проектов для сторонних заказчиков: "  + "\n" + "приложения автопарк на стеке Spring Cloud/микросервисы, система мониторинга показателей спортсменов на Spring Boot, участие в проекте МЭШ на Play-2, многомодульный Spring Boot + Vaadin проект для комплексных DIY смет");
-        listAchievement.add("С 2013 года: разработка проектов \"Разработка Web приложения\",\"Java Enterprise\", \"Многомодульный maven. Многопоточность. XML (JAXB/StAX). Веб сервисы (JAX-RS/SOAP). Удаленное взаимодействие (JMS/AKKA). Организация онлайн стажировок и ведение проектов. Более 3500 выпускников.\"");
-
-
+        listAchievement.add("Achievement #1");
+        listAchievement.add("Achievement #2");
+        listAchievement.add("Achievement #3");
 
         List<String> listQualification = new ArrayList<>();
-        listQualification.add("JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2");
+        listQualification.add("Tomcat");
         listQualification.add("Version control: Subversion, Git, Mercury, ClearCase, Perforce");
-        listQualification.add("DB: PostgreSQL(наследование, pgplsql, PL/Python), Redis (Jedis), H2, Oracle, MySQL, SQLite, MS SQL, HSQLDB");
+        listQualification.add("DB: Postgres, Oracle, MySQL");
 
+        List<ListOrganization> listOrganizationsExperience1 = new ArrayList<>();
+        listOrganizationsExperience1.add(new ListOrganization("09/2017", "01/2019", "инженер-разработчик", "Тестирование, отладка, внедрение ПО"));
+        Organization organisation1 = new Organization("Компания1", "https://www.xxxxxxxxx.ru", listOrganizationsExperience1);
 
+        List<ListOrganization> listOrganizationsExperience2 = new ArrayList<>();
+        listOrganizationsExperience2.add(new ListOrganization("01/2019", "02/2022", "Разработчик ПО", "Разработка ПО"));
+        Organization organisation2 = new Organization("Компания2", "https://www.xxxxxxxxxxx.com", listOrganizationsExperience2);
 
-
-        Organisation organisation1 = new Organisation("Alcatel", "https://www.alcatel.ru",  "09/1997", "01/2005", "\n" +
-                "Инженер по аппаратному и программному тестированию", "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM).");
-        Organisation organisation2 = new Organisation("Siemens AG", "https://www.siemens.com/global/en.html",  "01/2005", "02/2007", "\n" +
-                "Разработчик ПО", "Разработка информационной модели, проектирование интерфейсов, реализация и отладка ПО на мобильной IN платформе Siemens @vantage (Java, Unix).");
-
-        List<Organisation> listExperience = new ArrayList<>();
+        List<Organization> listExperience = new ArrayList<>();
         listExperience.add(organisation1);
         listExperience.add(organisation2);
 
-        List<Organisation> listEducation = new ArrayList<>();
-        listEducation.add(new Organisation("Заочная физико-техническая школа при МФТИ", "https://mipt.ru/", "09/1984", "06/1987", "", "Закончил с отличием"));
-        listEducation.add(new Organisation("Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики", "https://itmo.ru/", "09/1993", "07/1996", "Аспирантура (программист С, С++)", ""));
+
+        List<ListOrganization> listOrganizationsEducation1 = new ArrayList<>();
+        listOrganizationsEducation1.add(new ListOrganization("09/2003", "06/2014", "", "Закончил!"));
+        List<Organization> listEducation = new ArrayList<>();
+        listEducation.add(new Organization("Школа", "https://xxxxxx.ru/", listOrganizationsEducation1));
+
+        List<ListOrganization> listOrganizationsEducation2 = new ArrayList<>();
+        listOrganizationsEducation2.add(new ListOrganization("09/2014", "07/2018", "студент", ""));
+        listOrganizationsEducation2.add(new ListOrganization("09/2020", "07/2022", "Инженер", ""));
+        listEducation.add(new Organization("Национальный исследовательский университет информационных технологий", "https://xxxxx.ru/", listOrganizationsEducation2));
 
 
         for (SectionType type : SectionType.values()) {
             switch (type) {
-                case PERSONAL -> resume.getSections().put(SectionType.PERSONAL, new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры."));
+                case PERSONAL ->
+                        resume.getSections().put(SectionType.PERSONAL, new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность"));
 
-                case OBJECTIVE -> resume.getSections().put(SectionType.OBJECTIVE, new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям."));
+                case OBJECTIVE -> resume.getSections().put(SectionType.OBJECTIVE, new TextSection("Учусь"));
 
-                case ACHIEVEMENT -> resume.getSections().put(SectionType.ACHIEVEMENT, new SectionList(listAchievement));
+                case ACHIEVEMENT -> resume.getSections().put(SectionType.ACHIEVEMENT, new ListSection(listAchievement));
 
-                case QUALIFICATION -> resume.getSections().put(SectionType.QUALIFICATION , new SectionList(listQualification));
+                case QUALIFICATION ->
+                        resume.getSections().put(SectionType.QUALIFICATION, new ListSection(listQualification));
 
-                case EXPERIENCE -> resume.getSections().put(SectionType.EXPERIENCE , new OrganisationList(listExperience));
+                case EXPERIENCE ->
+                        resume.getSections().put(SectionType.EXPERIENCE, new OrganizationSection(listExperience));
 
-                case EDUCATION -> resume.getSections().put(SectionType.EDUCATION, new OrganisationList(listEducation));
+                case EDUCATION ->
+                        resume.getSections().put(SectionType.EDUCATION, new OrganizationSection(listEducation));
 
                 default -> System.out.println("Введены некорректные данные");
             }
         }
         System.out.println(resume.getSections().values());
-    }
+
+    }*/
 }
