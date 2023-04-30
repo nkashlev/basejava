@@ -35,7 +35,7 @@ public class ListSection extends AbstractSection {
 
     @Override
     public String toString() {
-        return "SectionList{" +
+        return "ListSection{" +
                 "items=" + items +
                 '}';
     }

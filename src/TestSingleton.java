@@ -1,5 +1,3 @@
-package com.urise.webapp;
-
 public class TestSingleton {
 
     private static TestSingleton instance = new TestSingleton();
